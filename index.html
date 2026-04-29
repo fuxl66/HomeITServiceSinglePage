@@ -6,12 +6,11 @@
     <title>Home IT Service</title>
 
     <!-- ✅ Favicon über Datei -->
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
 
     <style>
-        :root {
-            --accent: #4da3ff;
-        }
+        :root { --accent: #4da3ff; }
 
         body {
             margin: 0;
@@ -30,8 +29,8 @@
         }
 
         .container {
-            max-width: 450px;
-            width: 100%;
+            max-width: 520px;
+            width: 90%;
             text-align: center;
 
             background: rgba(20, 20, 20, 0.62);
@@ -44,7 +43,7 @@
         }
 
         .logo {
-            font-size: 40px;
+            font-size: 46px;
             font-weight: 800;
             letter-spacing: 2px;
             color: var(--accent);
@@ -71,9 +70,7 @@
             font-size: 18px;
         }
 
-        .contact p {
-            margin: 8px 0;
-        }
+        .contact p { margin: 8px 0; }
 
         a {
             color: var(--accent);
@@ -81,20 +78,12 @@
             font-weight: bold;
         }
 
-        a:hover {
-            text-decoration: underline;
-        }
+        a:hover { text-decoration: underline; }
 
         @media (max-width: 600px) {
-            .logo {
-                font-size: 34px;
-            }
-            .services {
-                font-size: 18px;
-            }
-            .container {
-                padding: 35px 25px;
-            }
+            .logo { font-size: 34px; }
+            .services { font-size: 18px; }
+            .container { padding: 35px 25px; }
         }
     </style>
 </head>
@@ -113,9 +102,15 @@
 
         <div class="contact">
             <p>Kontakt:</p>
+
+            <!-- ✅ Spam-geschützter E-Mail-Link (Adresse nicht im HTML als mailto vorhanden) -->
             <p>
-                <a href="mailto:home-it-service@outlook.at">
-                    home-it-service@outlook.at
+                <a class="email-protect"
+                   href="#"
+                   data-user="home-it-service"
+                   data-domain="outlook.at"
+                   aria-label="E-Mail senden">
+                   E-Mail senden
                 </a>
             </p>
 
@@ -123,5 +118,27 @@
             <p>2070 Retz</p>
         </div>
     </div>
+
+    <!-- ✅ JS setzt sichtbaren Text + klickbares mailto erst nach dem Laden -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const links = document.querySelectorAll(".email-protect");
+            links.forEach(link => {
+                const user = link.getAttribute("data-user");
+                const domain = link.getAttribute("data-domain");
+                const email = user + "@" + domain;
+
+                // Sichtbarer Text für Menschen
+                link.textContent = email;
+
+                // Klick öffnet Mailprogramm
+                link.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    window.location.href = "mailto:" + email;
+                });
+            });
+        });
+    </script>
 </body>
 </html>
+``
